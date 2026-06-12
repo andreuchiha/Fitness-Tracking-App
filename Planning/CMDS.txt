@@ -1,0 +1,9 @@
+LIST OF CMDS TO REMEMBER
+
+
+cd (foldername)
+cd ..
+
+django-admin startproject
+python manage.py startapp
+python manage.py runserver

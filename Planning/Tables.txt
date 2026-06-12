@@ -1,0 +1,31 @@
+TABLES:
+
+Users(id, email, password, name)
+
+Users(Django Auth)
+muscle_groups(id, name)
+equipment(id, name)
+exercise_muscle_groups(exercise_id, muscle_group_id)
+exercises(id, name, equipment_id, instructions, difficulty, image_url)
+workout_plans(id, user_id, name, day_of_week)
+Workout_plan_exercises (id, plan_id, exercise_id, sets, reps, rest_seconds, order_index)
+workout_sessions(id, user_id, workout_plan_id, date, duration_minutes, notes)
+workout_session_exercises(id, session_id, exercise_id, sets_completed, reps_completed, weight_kg)
+weight_logs(id, user_id, date, weight_kg, notes)
+food_logs(id, user_id, date, food_name, calories, protein, carbs, fats, meal_type)
+
+
+
+EXERCISE_APP
+
+equipement
+exercises
+exercise_muscle_groups
+
+WORKOUTS_APP
+
+workout_plans
+Workout_plan_exercises
+workout_sessions
+workout_session_exercises
+

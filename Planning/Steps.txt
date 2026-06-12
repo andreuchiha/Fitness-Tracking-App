@@ -1,0 +1,2 @@
+Step 1: Create Github, Create MYsql Connection, and link Dgjango to the MYsql Database
+Step 2: Plan the tables for the backend and convert them into django Models.
