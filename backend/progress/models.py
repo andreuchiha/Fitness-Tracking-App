@@ -10,4 +10,4 @@ class WeightLog(models.Model):
     notes = models.TextField(blank = True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.weight_kg}kg ({self.date})"
+        return f"{self.user.username} - {self.weight}kg ({self.date})"

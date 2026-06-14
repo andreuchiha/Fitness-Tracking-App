@@ -21,7 +21,7 @@ class WorkoutPlan(models.Model):
     day_of_week = models.CharField(max_length = 20, choices = DAY_CHOICES)
 
     def __str__(self):
-        return self.name
+        return self.workout_name
 
 
 
@@ -35,7 +35,7 @@ class WorkoutPlanExercise(models.Model):
     order_index = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.plan.name} - {self.exercise.name}"
+        return f" {self.plan.user.username} - {self.plan.workout_name} - {self.exercise.name}"
     
 
 

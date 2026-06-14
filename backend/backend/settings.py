@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'nutrition',
     'progress',
     'workouts',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
