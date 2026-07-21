@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .models import WeightLog
+from .serializers import WeightLogSerializer
+
+class WeightLogViewSet(viewsets.ModelViewSet):
+    queryset = WeightLog.objects.all()
+    serializer_class = WeightLogSerializer

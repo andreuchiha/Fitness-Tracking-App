@@ -1,0 +1,1 @@
+- Serializer are translators convert django models into JSON/XML so that it can be sent over the internet and vice versa.
