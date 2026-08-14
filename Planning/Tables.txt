@@ -18,6 +18,7 @@ food_logs(id, user_id, date, food_name, calories, protein, carbs, fats, meal_typ
 
 EXERCISE_APP
 
+muscle_groups
 equipement
 exercises
 exercise_muscle_groups
@@ -29,3 +30,10 @@ Workout_plan_exercises
 workout_sessions
 workout_session_exercises
 
+NUTRITION_APP
+
+food_logs
+
+PROGRESS_APP
+
+weight_logs

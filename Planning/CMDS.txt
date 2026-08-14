@@ -7,3 +7,6 @@ cd ..
 django-admin startproject
 python manage.py startapp
 python manage.py runserver
+
+
+admin account = andre fwdakiddre04
