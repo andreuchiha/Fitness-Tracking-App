@@ -1,6 +1,13 @@
+BACKEND
+
 Step 1: Create Github, Create MYsql Connection, and link Dgjango to the MYsql Database
 Step 2: Plan the tables for the backend.
 Step 3: Create Django Models based of the planned tables.
 Step 4: Create REST serializers for all the Models.
 Step 5: Create ViewSets for the models and serializers.
 Step 6: Create API Endpoints.
+Step 7: Use Postman to Test The API Endpoints. Test GET POST PATCH DELETE.
+
+FRONTEND
+
+Step 8:
