@@ -9,19 +9,30 @@ import Nutrition from "./pages/Nutrition";
 import Progress from "./pages/Progress";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
-                <Route path="/exercises" element={<ProtectedRoute> <Exercises /> </ProtectedRoute>} />
-                <Route path="/workouts" element={<ProtectedRoute> <Workouts /> </ProtectedRoute>} />
-                <Route path="/nutrition" element={<ProtectedRoute> <Nutrition /> </ProtectedRoute>} />
-                <Route path="/progress" element={<ProtectedRoute> <Progress /> </ProtectedRoute>} />
+                <Route
+                    element={
+                        <ProtectedRoute>
+                            <Layout />
+                        </ProtectedRoute>
+                    }
+                >
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/exercises" element={<Exercises />} />
+                    <Route path="/workouts" element={<Workouts />} />
+                    <Route path="/nutrition" element={<Nutrition />} />
+                    <Route path="/progress" element={<Progress />} />
+                </Route>
+
             </Routes>
         </BrowserRouter>
     );
