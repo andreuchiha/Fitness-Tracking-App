@@ -1,1 +1,11 @@
 - Serializer are translators convert django models into JSON/XML so that it can be sent over the internet and vice versa.
+
+ADMIN USER
+andre
+django2004
+
+INSTALLATIONS
+
+- Vite 
+- React Router 
+- Axios 

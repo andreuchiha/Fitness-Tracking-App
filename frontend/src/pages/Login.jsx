@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -10,6 +11,7 @@ function Login() {
     const [loading, setLoading] = useState(false);
 
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -23,6 +25,8 @@ function Login() {
             console.log("Login successful:", data);
 
             login(data.access, data.refresh);
+
+            navigate("/dashboard", { replace: true });
 
         } catch (error) {
             console.error("Login error:", error);

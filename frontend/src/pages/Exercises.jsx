@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getExercises } from "../services/exerciseService";
+import ExerciseCard from "../components/ExerciseCard";
+import styles from "../static/style.module.css";
 
 function Exercises() {
     const [exercises, setExercises] = useState([]);
@@ -37,13 +39,13 @@ function Exercises() {
         <div>
             <h1>Exercises</h1>
 
+            <div className = {styles.exerciseGrid}>
+
             {exercises.map((exercise) => (
-                <div key={exercise.id}>
-                    <h2>{exercise.name}</h2>
-                    <p>{exercise.instructions}</p>
-                    <p>Difficulty: {exercise.difficulty}</p>
-                </div>
+                <ExerciseCard key={exercise.id} exercise={exercise} />
             ))}
+
+            </div>
         </div>
     );
 }
