@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const getWeightLogs = async () => {
-    const response = await api.get("/api/progress/weightlogs/");
+    const response = await api.get("/progress/weightlogs/");
     return response.data;
 };
 

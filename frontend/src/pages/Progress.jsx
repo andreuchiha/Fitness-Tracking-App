@@ -1,6 +1,6 @@
 import styles from "../static/style.module.css";
-import { useState } from "react";
-import { createWeightLog } from "../services/progressService";
+import { useState, useEffect } from "react";
+import { createWeightLog, getWeightLogs } from "../services/progressService";
 
 
 function Progress() {
@@ -9,6 +9,20 @@ function Progress() {
     const [date, setDate] = useState("");
     const [weight, setWeight] = useState("");
     const [notes, setNotes] = useState("");
+    const [weightLogs, setWeightLogs] = useState([]);
+
+    useEffect(() => {
+        const fetchWeightLogs = async () => {
+            try {
+                const logs = await getWeightLogs();
+                setWeightLogs(logs);
+            } catch (error) {
+                console.error("Failed to fetch weight logs:", error);
+            }
+        };
+
+        fetchWeightLogs();
+    }, []);
 
     const handleSubmit = async () => {
 
@@ -22,6 +36,15 @@ function Progress() {
         const response = await createWeightLog(weightLog);
 
         console.log("Weight log created:", response);
+
+        setWeightLogs((previousLogs) => [
+            ...previousLogs,
+            response
+        ]);
+
+        setDate("");
+        setWeight("");
+        setNotes("");
 
     } catch (error) {
         console.error("Failed to create weight log:", error);
@@ -60,6 +83,34 @@ function Progress() {
         
             </div>
 
+        
+
+        <div className = {styles.WeightLogsContainer}> 
+
+        <span className = {styles.WeightLoggerText}> Weight History </span>
+
+        <table className = {styles.WeightHistoryTable}>
+            <thead>
+                <tr>
+                    <th className = {styles.WeightLoggerText}>Date</th>
+                    <th className = {styles.WeightLoggerText}>Weight (kg)</th>
+                    <th className = {styles.WeightLoggerText}>Notes</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {weightLogs.map((log) => (
+                    <tr key={log.id}>
+                        <td className = {styles.WeightLoggerText}>{log.date}</td>
+                        <td className = {styles.WeightLoggerText}>{log.weight}</td>
+                        <td className = {styles.WeightLoggerText}>{log.notes || "-"}</td>
+                    </tr>
+                ))}
+            </tbody>
+
+        </table>
+
+        </div>
 
             
         </div>
