@@ -4,6 +4,10 @@ ADMIN USER
 andre
 django2004
 
+Normal USER
+andre2
+password123
+
 INSTALLATIONS
 
 - Vite 
