@@ -1,10 +1,13 @@
 import styles from "../static/style.module.css";
 import { useState, useEffect } from "react";
-import { getWorkoutPlans } from "../services/workoutService";
+import { getWorkoutPlans, createWorkoutPlan } from "../services/workoutService";
 
 function Workouts() {
 
     const [workoutPlans, setWorkoutPlans] = useState([]);
+    const [workoutName, setWorkoutName] = useState("");
+    const [dayOfWeek, setDayOfWeek] = useState("");
+    const [showCreateForm, setShowCreateForm] = useState(false);
 
     // Fetch workout plans when the page loads
     useEffect(() => {
@@ -31,15 +34,106 @@ function Workouts() {
 
     }, []);
 
+    const handleCreateWorkoutPlan = async () => {
+
+        const workoutPlan = {
+            workout_name: workoutName,
+            day_of_week: dayOfWeek,
+        };
+
+        try {
+
+            const response = await createWorkoutPlan(workoutPlan);
+
+            console.log("Workout plan created:", response);
+
+            setWorkoutPlans((previousPlans) => [
+                ...previousPlans,
+                response
+             ]);
+
+        setWorkoutName("");
+        setDayOfWeek("");
+        setShowCreateForm(false);
+        }
+            catch (error) {
+
+        console.error("Failed to create workout plan:", error);
+
+    }
+    }
+
     return (
 
         <div className={styles.workoutsPage}>
 
             <h1>Workouts</h1>
 
+            <div className = {styles.CreateWorkoutPlansContainer}>
+
+                <button className={styles.ViewWorkoutButton} onClick={() => setShowCreateForm(true)}>
+                    Create New Workout Plan
+                </button>
+
+            </div>
+
+            {showCreateForm && (
+
+                    <div className={styles.CreateWorkoutForm}>
+
+                        <h2>Create Workout Plan</h2>
+
+                        <div>
+
+
+                            <input
+                                className={styles.CreateWorkoutFormInput}
+                                type="text"
+                                value={workoutName}
+                                onChange={(e) => setWorkoutName(e.target.value)}
+                                placeholder="Workout Name"
+                            />
+                        </div>
+
+                        <div>
+
+                            <select
+                                className={styles.CreateWorkoutDropdown}
+                                value={dayOfWeek}
+                                onChange={(e) => setDayOfWeek(e.target.value)}
+                            >
+                                <option value="">Select a day</option>
+                                <option value="MONDAY">Monday</option>
+                                <option value="TUESDAY">Tuesday</option>
+                                <option value="WEDNESDAY">Wednesday</option>
+                                <option value="THURSDAY">Thursday</option>
+                                <option value="FRIDAY">Friday</option>
+                                <option value="SATURDAY">Saturday</option>
+                                <option value="SUNDAY">Sunday</option>
+                            </select>
+                        </div>
+
+                        <button
+                            className={styles.CreateWorkoutButton}
+                            onClick={handleCreateWorkoutPlan}
+                        >
+                            Create Workout Plan
+                        </button>
+
+                        <button
+                            className={styles.CreateWorkoutButton}
+                            onClick={() => setShowCreateForm(false)}
+                        >
+                            Cancel
+                        </button>
+
+                    </div>
+
+                )}
+
             <div className={styles.WorkoutPlansContainer}>
 
-                <span className={styles.WorkoutText}>
+                <span className={styles.WorkoutPlanText}>
                     My Workout Plans
                 </span>
 
@@ -68,6 +162,9 @@ function Workouts() {
                 </div>
 
             </div>
+
+
+            
 
         </div>
 

@@ -7,3 +7,8 @@ export const getWorkoutPlans = async () => {
 
     return response.data;
 };
+
+export const createWorkoutPlan = async (workoutPlan) => {
+    const response = await api.post("workouts/workoutplans/", workoutPlan);
+    return response.data;
+};

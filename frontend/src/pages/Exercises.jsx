@@ -51,7 +51,7 @@ function Exercises() {
         <div>
             <h1>Exercises</h1>
 
- <div className={styles.exerciseGrid}>
+            <div className={styles.exerciseGrid}>
                 {exercises.map((exercise) => (
                     <ExerciseCard
                         key={exercise.id}
