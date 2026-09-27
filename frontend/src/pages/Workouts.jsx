@@ -1,4 +1,5 @@
 import styles from "../static/style.module.css";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getWorkoutPlans, createWorkoutPlan } from "../services/workoutService";
 
@@ -8,6 +9,8 @@ function Workouts() {
     const [workoutName, setWorkoutName] = useState("");
     const [dayOfWeek, setDayOfWeek] = useState("");
     const [showCreateForm, setShowCreateForm] = useState(false);
+
+    const navigate = useNavigate();
 
     // Fetch workout plans when the page loads
     useEffect(() => {
@@ -68,6 +71,40 @@ function Workouts() {
         <div className={styles.workoutsPage}>
 
             <h1>Workouts</h1>
+
+            
+
+            <div className={styles.WorkoutPlansContainer}>
+
+                <span className={styles.WorkoutPlanText}>
+                    My Workout Plans
+                </span>
+
+
+                <div className={styles.WorkoutPlansGrid}>
+
+                    {workoutPlans.map((plan) => (
+
+                        <div
+                            className={styles.WorkoutPlanCard}
+                            key={plan.id}
+                        >
+
+                            <h2>{plan.workout_name}</h2>
+
+                            <h2>{plan.day_of_week}</h2>
+
+                            <button className={styles.ViewWorkoutButton}  onClick={() => navigate(`/workouts/${plan.id}`)} >
+                                View Workout
+                            </button>
+
+                        </div>
+
+                    ))}
+
+                </div>
+
+            </div>
 
             <div className = {styles.CreateWorkoutPlansContainer}>
 
@@ -130,38 +167,6 @@ function Workouts() {
                     </div>
 
                 )}
-
-            <div className={styles.WorkoutPlansContainer}>
-
-                <span className={styles.WorkoutPlanText}>
-                    My Workout Plans
-                </span>
-
-
-                <div className={styles.WorkoutPlansGrid}>
-
-                    {workoutPlans.map((plan) => (
-
-                        <div
-                            className={styles.WorkoutPlanCard}
-                            key={plan.id}
-                        >
-
-                            <h2>{plan.workout_name}</h2>
-
-                            <h2>{plan.day_of_week}</h2>
-
-                            <button className={styles.ViewWorkoutButton}>
-                                View Workout
-                            </button>
-
-                        </div>
-
-                    ))}
-
-                </div>
-
-            </div>
 
 
             

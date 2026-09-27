@@ -8,7 +8,27 @@ export const getWorkoutPlans = async () => {
     return response.data;
 };
 
+export const getWorkoutPlan = async (id) => {
+    const response = await api.get(`workouts/workoutplans/${id}/`);
+    return response.data;
+};
+
 export const createWorkoutPlan = async (workoutPlan) => {
     const response = await api.post("workouts/workoutplans/", workoutPlan);
     return response.data;
 };
+
+export const getWorkoutPlanExercises = async () => {
+    const response = await api.get("workouts/workoutplanexercises/");
+    return response.data;
+};
+
+export const createWorkoutPlanExercise = async (workoutPlanExercise) => {
+    const response = await api.post(
+        "workouts/workoutplanexercises/",
+        workoutPlanExercise
+    );
+
+    return response.data;
+};
+

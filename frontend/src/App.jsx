@@ -8,6 +8,7 @@ import Workouts from "./pages/Workouts";
 import Nutrition from "./pages/Nutrition";
 import Progress from "./pages/Progress";
 import ExerciseDetails from "./pages/ExerciseDetails";
+import WorkoutDetails from "./pages/WorkoutDetails";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/progress" element={<Progress />} />
 
                     <Route path = "/exercises/:id" element = {<ExerciseDetails />} />
+                    <Route path = "/workouts/:id" element = {<WorkoutDetails />} />
 
                 </Route>
 
