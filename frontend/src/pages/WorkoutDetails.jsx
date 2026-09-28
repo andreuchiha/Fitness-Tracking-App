@@ -1,10 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
+
 import {
     getWorkoutPlan,
     createWorkoutPlanExercise,
-    getWorkoutPlanExercises
+    getWorkoutPlanExercises,
+    deleteWorkoutPlanExercise
 } from "../services/workoutService";
 
 import { getExercises } from "../services/exerciseService";
@@ -207,6 +210,28 @@ function WorkoutDetails() {
 
     };
 
+    const DeleteWorkoutPlanExercise = async (exerciseId) => {
+        try {
+            await deleteWorkoutPlanExercise(exerciseId);
+
+            // Remove the deleted exercise from the list
+            setWorkoutExercises((previousExercises) =>
+                previousExercises.filter(
+                    (exercise) => exercise.id !== exerciseId
+                )
+            );
+        }
+
+        catch (error) {
+
+            console.error(
+                "Failed to delete workout plan exercise:",
+                error
+            );
+    }
+
+}
+
 
     if (!workout) {
 
@@ -216,6 +241,7 @@ function WorkoutDetails() {
 
 
     return (
+        
 
         <div className={styles.workoutsPage}>
 
@@ -277,6 +303,12 @@ function WorkoutDetails() {
                                     <p>
                                         Rest: {workoutExercise.rest} seconds
                                     </p>
+
+                                    <button
+                                    className = {styles.DeleteWorkoutPlanExerciseButton}
+                                    onClick = {() => DeleteWorkoutPlanExercise(workoutExercise.id)}>
+                                         REMOVE
+                                          </button>
 
                                 </div>
 

@@ -1,7 +1,7 @@
 import styles from "../static/style.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getWorkoutPlans, createWorkoutPlan } from "../services/workoutService";
+import { getWorkoutPlans, createWorkoutPlan, deleteWorkoutPlan } from "../services/workoutService";
 
 function Workouts() {
 
@@ -65,6 +65,21 @@ function Workouts() {
 
     }
     }
+    
+    const deleteWorkout = async(id ) => {
+
+        try {
+            await deleteWorkoutPlan(id);
+
+            setWorkoutPlans((previousPlans) =>
+                 previousPlans.filter((plan) => plan.id !== id)
+        );
+        }
+
+        catch (error) {
+            console.error("Failed to delete workout plan:", error);
+        }
+    }
 
     return (
 
@@ -96,6 +111,13 @@ function Workouts() {
 
                             <button className={styles.ViewWorkoutButton}  onClick={() => navigate(`/workouts/${plan.id}`)} >
                                 View Workout
+                            </button>
+
+                            <button
+                             className={styles.DeleteWorkoutPlanExerciseButton}
+                             onClick={() => deleteWorkout(plan.id)}
+                            >
+                                REMOVE
                             </button>
 
                         </div>

@@ -32,3 +32,16 @@ export const createWorkoutPlanExercise = async (workoutPlanExercise) => {
     return response.data;
 };
 
+export const deleteWorkoutPlanExercise = async (id) => {
+    const response = await api.delete(
+        `workouts/workoutplanexercises/${id}/`
+    );
+    return response.data;
+}
+
+export const deleteWorkoutPlan = async (id) => {
+    const response = await api.delete(
+        `workouts/workoutplans/${id}/`
+    );
+    return response.data;
+}
