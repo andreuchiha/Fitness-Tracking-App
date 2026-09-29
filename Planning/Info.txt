@@ -13,3 +13,4 @@ INSTALLATIONS
 - Vite 
 - React Router 
 - Axios 
+- recharts

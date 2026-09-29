@@ -1,7 +1,7 @@
 import styles from "../static/style.module.css";
 import { useState, useEffect } from "react";
 import { createWeightLog, getWeightLogs, deleteWeightLog} from "../services/progressService";
-
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 function Progress() {
 
@@ -15,7 +15,12 @@ function Progress() {
         const fetchWeightLogs = async () => {
             try {
                 const logs = await getWeightLogs();
-                setWeightLogs(logs);
+
+                const sortedLogs = [...logs].sort(
+                (a, b) => new Date(a.date) - new Date(b.date)
+                );
+
+                setWeightLogs(sortedLogs);
             } catch (error) {
                 console.error("Failed to fetch weight logs:", error);
             }
@@ -37,10 +42,18 @@ function Progress() {
 
         console.log("Weight log created:", response);
 
-        setWeightLogs((previousLogs) => [
-            ...previousLogs,
-            response
-        ]);
+        setWeightLogs((previousLogs) => {
+
+            const updatedLogs = [
+                ...previousLogs,
+                response
+            ];
+
+            return updatedLogs.sort(
+                (a, b) => new Date(a.date) - new Date(b.date)
+            );
+
+        });
 
         setDate("");
         setWeight("");
@@ -53,18 +66,20 @@ function Progress() {
 
     };
 
-        const handleDeleteWeightLog = async (id) => {
-        try {
-            await deleteWeightLog(id);
-            setWeightLogs((previousLogs) =>
-                previousLogs.filter((log) => log.id !== id)
-            );
+    const handleDeleteWeightLog = async (id) => {
+    try {
+        await deleteWeightLog(id);
+        setWeightLogs((previousLogs) =>
+            previousLogs.filter((log) => log.id !== id)
+        );
 
-        }catch (error) {
-            console.error("Failed to delete weight log:", error);
-        }
+    }catch (error) {
+        console.error("Failed to delete weight log:", error);
+    }
 
-        }
+    }
+
+
 
     return (
 
@@ -98,6 +113,45 @@ function Progress() {
         
             </div>
 
+        <div className={styles.WeightGraphContainer}>
+
+    <span className={styles.WeightLoggerText}>
+        Weight Journey
+    </span>
+
+    <ResponsiveContainer width="100%" height={400}>
+
+        <LineChart data={weightLogs}>
+
+            <CartesianGrid strokeDasharray="3 3" />
+
+            <XAxis
+                dataKey="date"
+            />
+
+            <YAxis
+                label={{
+                    value: "Weight (kg)",
+                    angle: -90,
+                    position: "insideLeft"
+                }}
+            />
+
+            <Tooltip />
+
+            <Line
+                type="monotone"
+                dataKey="weight"
+                stroke="#3498db"
+                strokeWidth={3}
+                dot={{ r: 5 }}
+            />
+
+        </LineChart>
+
+    </ResponsiveContainer>
+
+</div>
         
 
         <div className = {styles.WeightLogsContainer}> 
