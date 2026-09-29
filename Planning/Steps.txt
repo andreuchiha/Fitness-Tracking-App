@@ -11,3 +11,9 @@ Step 7: Use Postman to Test The API Endpoints. Test GET POST PATCH DELETE.
 FRONTEND
 
 Step 8:
+
+
+TODO:
+
+Update Dashboard
+Add graphs to the nutrition and progress page to show progress

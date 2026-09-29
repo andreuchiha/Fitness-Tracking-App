@@ -1,6 +1,6 @@
 import styles from "../static/style.module.css";
 import { useState, useEffect } from "react";
-import { createWeightLog, getWeightLogs } from "../services/progressService";
+import { createWeightLog, getWeightLogs, deleteWeightLog} from "../services/progressService";
 
 
 function Progress() {
@@ -49,7 +49,22 @@ function Progress() {
     } catch (error) {
         console.error("Failed to create weight log:", error);
     }
-};
+
+
+    };
+
+        const handleDeleteWeightLog = async (id) => {
+        try {
+            await deleteWeightLog(id);
+            setWeightLogs((previousLogs) =>
+                previousLogs.filter((log) => log.id !== id)
+            );
+
+        }catch (error) {
+            console.error("Failed to delete weight log:", error);
+        }
+
+        }
 
     return (
 
@@ -104,6 +119,14 @@ function Progress() {
                         <td className = {styles.WeightLoggerText}>{log.date}</td>
                         <td className = {styles.WeightLoggerText}>{log.weight}</td>
                         <td className = {styles.WeightLoggerText}>{log.notes || "-"}</td>
+                        <td>
+                            <button
+                                className = {styles.deleteButton}
+                                onClick={() => handleDeleteWeightLog(log.id)}
+                            >
+                                DELETE
+                            </button>
+                        </td>
                     </tr>
                 ))}
             </tbody>

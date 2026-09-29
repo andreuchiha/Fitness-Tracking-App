@@ -16,3 +16,12 @@ export const getFoodLogs = async () => {
 
     return response.data;
 };
+
+
+export const deleteFoodLog = async (id) => {
+    const response = await api.delete(
+        `nutrition/foodlogs/${id}/`
+    );
+
+    return response.data;
+};

@@ -13,3 +13,9 @@ export const createWeightLog = async (weightLog) => {
 
     return response.data;
 };
+
+
+export const deleteWeightLog = async (id) => {
+    const response = await api.delete(`/progress/weightlogs/${id}/`);
+    return response.data;
+};

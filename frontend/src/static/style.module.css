@@ -27,7 +27,25 @@
     color: #006fbe;  /* Changes color on hover */
 }
 
+/* DEFAULT */
+.deleteButton {
+    
+    padding: 0.5rem 1.5rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-left: 0.5rem;
 
+
+
+}
+
+.deleteButton:hover {
+    background-color: #c0392b;
+}
 
 
 .logoutBtn {
@@ -264,7 +282,7 @@
     padding: 2rem;
     margin: 1rem 0;
     border-radius: 8px;
-    width: 60%;
+    width: 80%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
@@ -284,7 +302,13 @@
 
 }
 
-/* NutritionPage.module.css */
+.FoodHistoryRow{
+    margin-bottom: 1rem; /* Space between rows */
+    margin-top: 1rem; /* Space between rows */
+    background-color: #172f41; /* Dark background for each row */
+}
+
+/* workouts page.module.css */
 
 .workoutsPage {
     display: flex;
@@ -297,7 +321,7 @@
 
 .WorkoutPlanCard {
     display: flex;
-    align-items: center; /* Vertically centers items */
+    
     background-color: #2c3e50;
     padding: 2rem;
     margin: 1rem 0;

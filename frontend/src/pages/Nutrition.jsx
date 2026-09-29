@@ -1,6 +1,6 @@
 import styles from "../static/style.module.css";
 import { useState, useEffect } from "react";
-import {createFoodLog, getFoodLogs } from "../services/nutritionService";
+import {createFoodLog, getFoodLogs, deleteFoodLog } from "../services/nutritionService";
 
 
 function Nutrition() {
@@ -76,6 +76,19 @@ const handleSubmit = async () => {
         console.error("Failed to create food log:", error);
 
     }
+    }
+
+    const handleDeleteFoodLog = async (id) => {
+
+        try {
+            await deleteFoodLog(id);
+
+            setFoodLogs((previousLogs) =>
+                previousLogs.filter((log) => log.id !== id)
+            );
+        } catch (error) {
+            console.error("Failed to delete food log:", error);
+        }
 };
 
 
@@ -235,7 +248,7 @@ const handleSubmit = async () => {
 
                         {foodLogs.map((log) => (
 
-                            <tr key={log.id}>
+                            <tr className = {styles.FoodHistoryRow} key={log.id}>
 
                                 <td className={styles.FoodLoggerText}>
                                     {log.date}
@@ -263,6 +276,15 @@ const handleSubmit = async () => {
 
                                 <td className={styles.FoodLoggerText}>
                                     {log.meal_type}
+                                </td>
+
+                                <td>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => handleDeleteFoodLog(log.id)}
+                                    >
+                                        DELETE
+                                    </button>
                                 </td>
 
                             </tr>
