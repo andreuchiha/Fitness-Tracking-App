@@ -127,14 +127,19 @@ function Progress() {
 
             <XAxis
                 dataKey="date"
+                tick={{ fill: 'white' }}
             />
 
             <YAxis
                 label={{
                     value: "Weight (kg)",
                     angle: -90,
-                    position: "insideLeft"
+                    position: "insideLeft",
+                    style: { fill: 'white'}
+                    
                 }}
+                tick={{ fill: 'white' }}
+                
             />
 
             <Tooltip />

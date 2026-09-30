@@ -1,6 +1,7 @@
 import styles from "../static/style.module.css";
 import { useState, useEffect } from "react";
 import {createFoodLog, getFoodLogs, deleteFoodLog } from "../services/nutritionService";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 
 function Nutrition() {
@@ -90,6 +91,21 @@ const handleSubmit = async () => {
             console.error("Failed to delete food log:", error);
         }
 };
+
+    const calorieData = Object.values(
+        foodLogs.reduce((dailyTotals, log) => {
+            if (!dailyTotals[log.date]) {
+                dailyTotals[log.date] = {
+                    date: log.date,
+                    calories: 0
+                };
+            }
+
+            dailyTotals[log.date].calories += Number(log.calories);
+
+            return dailyTotals;
+        }, {})
+    ).sort((a, b) => new Date(a.date) - new Date(b.date));
 
 
     return (
@@ -220,6 +236,49 @@ const handleSubmit = async () => {
                 </button>
 
             </div>
+
+            <div className={styles.NutritionGraphContainer}>
+
+            <span className={styles.FoodLoggerText}>
+                Daily Calories
+            </span>
+
+            <ResponsiveContainer width="100%" height={400}>
+
+                <LineChart data={calorieData}>
+
+                    <CartesianGrid strokeDasharray="3 3" />
+
+                    <XAxis
+                        dataKey="date"
+                        tick={{ fill: 'white' }}
+                    />
+
+                    <YAxis
+                        label={{
+                            value: "Calories (kcal)",
+                            angle: -90,
+                            position: "insideLeft",
+                            style: { fill: 'white' }
+                        }}
+                        tick={{ fill: 'white' }}
+                    />
+
+                    <Tooltip />
+
+                    <Line
+                        type="monotone"
+                        dataKey="calories"
+                        stroke="#3498db"
+                        strokeWidth={3}
+                        dot={{ r: 5 }}
+                    />
+
+                </LineChart>
+
+            </ResponsiveContainer>
+
+        </div>
 
 
             <div className={styles.FoodLogsContainer}>
