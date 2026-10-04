@@ -9,6 +9,7 @@ import Nutrition from "./pages/Nutrition";
 import Progress from "./pages/Progress";
 import ExerciseDetails from "./pages/ExerciseDetails";
 import WorkoutDetails from "./pages/WorkoutDetails";
+import WorkoutSession from "./pages/WorkoutSession";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
@@ -36,6 +37,7 @@ function App() {
 
                     <Route path = "/exercises/:id" element = {<ExerciseDetails />} />
                     <Route path = "/workouts/:id" element = {<WorkoutDetails />} />
+                    <Route path="/workouts/:id/session" element={<WorkoutSession />} />
 
                 </Route>
 

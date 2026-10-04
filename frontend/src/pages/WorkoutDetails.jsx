@@ -1,5 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 
 
 
@@ -32,6 +33,8 @@ function WorkoutDetails() {
     const [orderIndex, setOrderIndex] = useState("");
 
     const [showCreateForm, setShowCreateForm] = useState(false);
+
+    const navigate = useNavigate();
 
 
     // Fetch workout, exercises and workout exercises
@@ -247,8 +250,10 @@ function WorkoutDetails() {
 
             <h1>{workout.workout_name}</h1>
 
-
-
+            <button className={styles.StartWorkoutButton} onClick={() => navigate(`/workouts/${workout.id}/session`)}>
+                Start Workout
+            </button>
+        
             {/* Workout Exercises */}
 
             <div className={styles.WorkoutExercisesContainer}>
@@ -472,6 +477,7 @@ function WorkoutDetails() {
                 </div>
 
             )}
+
 
 
         </div>

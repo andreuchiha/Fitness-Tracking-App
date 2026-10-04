@@ -45,3 +45,11 @@ export const deleteWorkoutPlan = async (id) => {
     );
     return response.data;
 }
+
+export const createWorkoutSession = async (workoutSession) => {
+    const response = await api.post(
+        "workouts/workoutsessions/",
+        workoutSession
+    );
+    return response.data;
+}
