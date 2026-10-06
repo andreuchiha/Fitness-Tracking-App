@@ -18,6 +18,8 @@ function WorkoutSession() {
     const [workoutExercises, setWorkoutExercises] = useState([]);
     const [exercises, setExercises] = useState([]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
 
         const fetchWorkout = async () => {
@@ -109,6 +111,7 @@ function WorkoutSession() {
         try {
             const response = await createWorkoutSession(workoutSession);
             console.log("Workout session created:", response);
+            navigate(`/workouts/session/${response.id}`);
         } catch (error) {
             console.error("Failed to create workout session:", error);
             error.response?.data
@@ -118,7 +121,7 @@ function WorkoutSession() {
 
             <h1>{workout ? `${workout.workout_name} Session` : "Loading..."}</h1>
 
-            <p> DATE </p>
+            <p> DATE: {today} </p>
 
 
             {/* Workout Exercises Container */}

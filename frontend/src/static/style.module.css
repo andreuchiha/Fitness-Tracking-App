@@ -557,3 +557,33 @@
     background-color: rgba(162, 0, 255, 0.7); /* Purple with 70% opacity */   
     margin-top: 0.5rem; 
 }
+
+/* Session Details Page */
+
+
+.sessionPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+
+}
+
+.SessionExerciseLog {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5rem; /* Space above the exercises container */
+    width: 100%; /* Full width of the parent container */
+    max-width: 800px; /* Optional: limit the maximum width */
+    background-color: #172f41;
+    color: white;
+    border: 1px solid white;
+    border-radius: 6px;
+}
+
+
+.addSessionExercise {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

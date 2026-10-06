@@ -53,3 +53,27 @@ export const createWorkoutSession = async (workoutSession) => {
     );
     return response.data;
 }
+
+export const getWorkoutSession = async (id) => {
+    const response = await api.get(
+        `workouts/workoutsessions/${id}/`
+    );
+    return response.data;
+}
+
+
+export const createWorkoutSessionExercise = async (workoutSessionExercise) => {
+    const response = await api.post(
+        "workouts/workoutsessionexercises/",
+        workoutSessionExercise
+    );
+    return response.data;
+}
+
+
+export const getWorkoutSessionsExercises = async () => {
+    const response = await api.get(
+        "workouts/workoutsessionexercises/"
+    );
+    return response.data;
+}
