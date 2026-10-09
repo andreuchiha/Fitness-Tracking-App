@@ -11,6 +11,7 @@ import ExerciseDetails from "./pages/ExerciseDetails";
 import WorkoutDetails from "./pages/WorkoutDetails";
 import WorkoutSession from "./pages/WorkoutSession";
 import SessionDetails from "./pages/SessionDetails";
+import Sessions from "./pages/Sessions";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
@@ -35,6 +36,7 @@ function App() {
                     <Route path="/workouts" element={<Workouts />} />
                     <Route path="/nutrition" element={<Nutrition />} />
                     <Route path="/progress" element={<Progress />} />
+                    <Route path="/sessions" element={<Sessions />} />
 
                     <Route path = "/exercises/:id" element = {<ExerciseDetails />} />
                     <Route path = "/workouts/:id" element = {<WorkoutDetails />} />

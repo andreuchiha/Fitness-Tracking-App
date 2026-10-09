@@ -16,6 +16,7 @@ function Navbar() {
                 <Link to="/workouts">Workouts</Link>
                 <Link to="/nutrition">Nutrition</Link>
                 <Link to="/progress">Progress</Link>
+                <Link to="/sessions">Sessions</Link>
 
                 <button className = {styles.logoutBtn} onClick={logout}>
                     Logout

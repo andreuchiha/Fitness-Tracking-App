@@ -15,5 +15,6 @@ Step 8:
 
 TODO:
 
-Update Dashboard
-Add graphs to the nutrition and progress page to show progress
+Workout Sessions Viewer Page
+Graph to show gym attended this month
+Show Recent Workouts On Dashboard

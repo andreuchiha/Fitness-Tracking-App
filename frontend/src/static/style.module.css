@@ -237,7 +237,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
 
 }
 
@@ -321,7 +321,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
 
 }
 
@@ -348,7 +348,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
 
 }
 
@@ -536,7 +536,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
 
 }
 
@@ -566,7 +566,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
 
 }
 
@@ -586,4 +586,138 @@
 .addSessionExercise {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.sessionList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Space between session cards */
+    width: 100%;
+    max-width: 800px; /* Optional: limit the maximum width */
+    max-height: 33rem; /* Optional: limit the maximum height */
+    overflow-y: auto;
+}
+
+.sessionCard {
+    background-color: #2c3e50;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+
+.sessionCard:hover {
+    background-color: #172f41;
+}
+
+.sessionCard h3 {
+    color: #ecf0f1;
+}
+
+.sessionCard p {
+    color: #ecf0f1;
+}
+
+/* Calendar */
+
+.workoutCalendar {
+background: #2c3e50;
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+margin-bottom: 2rem;
+margin-top: 2rem;
+width: 70%;
+height: 50%;
+}
+
+.calendarHeader {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 20px;
+}
+
+.calendarHeader h2 {
+font-size: 20px;
+margin: 0;
+}
+
+.calendarHeader button {
+border: none;
+background: #f0f0f0;
+padding: 8px 12px;
+border-radius: 6px;
+cursor: pointer;
+font-size: 16px;
+}
+
+.calendarHeader button {
+background: #172f41;
+}
+
+.calendarGrid {
+display: grid;
+grid-template-columns: repeat(7, minmax(0, 1fr));
+gap: 6px;
+}
+
+.calendarWeekday {
+text-align: center;
+font-weight: bold;
+font-size: 13px;
+padding: 8px 0;
+color: #fcfafa;
+}
+
+.calendarEmpty {
+min-height: 42px;
+}
+
+.calendarDay {
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 42px;
+border-radius: 8px;
+background: #6b85a7;
+font-size: 14px;
+color: white;
+}
+
+.gymDay {
+background: #28a745;
+color: white;
+font-weight: bold;
+}
+
+.today {
+outline: 2px solid #ff0101;
+outline-offset: -2px;
+}
+
+.calendarLegend {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-top: 18px;
+font-size: 13px;
+}
+
+.legendGymDay,
+.legendToday {
+display: inline-block;
+width: 13px;
+height: 13px;
+border-radius: 4px;
+}
+
+.legendGymDay {
+background: #28a745;
+}
+
+.legendToday {
+border: 2px solid #ff0101;
 }

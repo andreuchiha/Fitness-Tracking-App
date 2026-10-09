@@ -54,6 +54,14 @@ export const createWorkoutSession = async (workoutSession) => {
     return response.data;
 }
 
+
+export const getWorkoutSessions = async () => {
+    const response = await api.get(
+        "workouts/workoutsessions/"
+    );
+    return response.data;
+}
+
 export const getWorkoutSession = async (id) => {
     const response = await api.get(
         `workouts/workoutsessions/${id}/`
