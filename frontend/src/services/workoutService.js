@@ -69,6 +69,13 @@ export const getWorkoutSession = async (id) => {
     return response.data;
 }
 
+export const deleteWorkoutSession = async (id) => {
+    const response = await api.delete(
+        `workouts/workoutsessions/${id}/`
+    );
+    return response.data;
+}
+
 
 export const createWorkoutSessionExercise = async (workoutSessionExercise) => {
     const response = await api.post(

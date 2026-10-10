@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {getFoodLogs} from "../services/nutritionService";
 import {getWeightLogs} from "../services/progressService";
-import {getWorkoutPlans} from "../services/workoutService";
+import {getWorkoutPlans, getWorkoutSessions, getWorkoutPlan} from "../services/workoutService";
 
 
 
@@ -12,6 +12,8 @@ function Dashboard() {
     const [foodLogs, setFoodLogs] = useState([]);
     const [weightLogs, setWeightLogs] = useState([]);
     const [workoutPlans, setWorkoutPlans] = useState([]);
+    const [workoutSessions, setWorkoutSessions] = useState([]);
+
 
     const navigate = useNavigate();
 
@@ -47,9 +49,35 @@ function Dashboard() {
             }
         }
 
+        const fetchWorkoutSessions = async () => {
+            try {
+                const sessionsData = await getWorkoutSessions();
+
+                const sessionsWithPlans = await Promise.all(
+                    sessionsData.map(async (session) => {
+
+                        const workoutPlan = await getWorkoutPlan(
+                            session.workout_plan
+                        );
+
+                        return {
+                            ...session,
+                            workoutPlan: workoutPlan
+                        };
+
+                    })
+                );
+
+                setWorkoutSessions(sessionsWithPlans);
+            } catch (error) {
+                console.error("Failed to fetch workout sessions:", error);
+            }
+        };
+
         fetchFoodLogs();
         fetchWeightLogs();
         fetchWorkoutPlans();
+        fetchWorkoutSessions();
     }, []);
 
     // Get Todays Date in YYYY-MM-DD format
@@ -68,6 +96,9 @@ function Dashboard() {
     // Get todays workout plan based of day
     const dayOfWeek = new Date().toLocaleDateString("en-US", {weekday: "long"}).toUpperCase();
     const todaysWorkout = workoutPlans.find(plan => plan.day_of_week === dayOfWeek);
+
+    // Get the latest 3 workout sessions
+    const latestWorkoutSessions = workoutSessions.slice(-3).reverse();
 
     return (
         <div className = {styles.dashboard}>
@@ -94,7 +125,15 @@ function Dashboard() {
 
                 <section className = {styles.dashboardCard}>
                     <h2>Recent Workouts</h2>
-                    <p>No workouts completed yet.</p>
+                    {latestWorkoutSessions.length > 0 ? (
+                        <ul>
+                            {latestWorkoutSessions.map(session => (
+                                <li key={session.id}>{session.workoutPlan?.workout_name} | {session.duration} mins</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No workouts completed yet.</p>
+                    )}
                 </section>
                 
 

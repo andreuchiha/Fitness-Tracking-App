@@ -31,7 +31,7 @@
 .deleteButton {
     
     padding: 0.5rem 1.5rem;
-    background-color: #e74c3c;
+    background-color: #dc3545;
     color: white;
     border: none;
     cursor: pointer;
@@ -570,6 +570,16 @@
 
 }
 
+.sessionDetailsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+
+
+}
+
 .SessionExerciseLog {
     display: flex;
     flex-direction: column;
@@ -618,6 +628,97 @@
 
 .sessionCard p {
     color: #ecf0f1;
+}
+
+
+.optionsOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.optionsPanel {
+    width: 30%;
+    height: 30%;
+    box-sizing: border-box;
+    padding: 25px;
+
+    background: #203357;
+    color: #222;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+
+    overflow-y: auto;
+}
+
+.closeOptions {
+    display: block;
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.deleteButton {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.deleteConfirmPanel {
+    width: 30%;
+    height: 30%;
+    box-sizing: border-box;
+    padding: 25px;
+    background: #203357;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.deleteConfirmPanel p {
+    line-height: 1.5;
+}
+
+.deleteConfirmButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.cancelDeleteButton,
+.confirmDeleteButton {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cancelDeleteButton {
+    background: #e0e0e0;
+    color: #222;
+}
+
+.confirmDeleteButton {
+    background: #dc3545;
+    color: white;
+}
+
+.deleteButton:hover,
+.confirmDeleteButton:hover {
+    background: #b02a37;
 }
 
 /* Calendar */
