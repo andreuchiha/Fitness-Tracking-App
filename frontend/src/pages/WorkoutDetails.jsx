@@ -8,7 +8,8 @@ import {
     getWorkoutPlan,
     createWorkoutPlanExercise,
     getWorkoutPlanExercises,
-    deleteWorkoutPlanExercise
+    deleteWorkoutPlanExercise,
+    deleteWorkoutPlan
 } from "../services/workoutService";
 
 import { getExercises } from "../services/exerciseService";
@@ -33,6 +34,8 @@ function WorkoutDetails() {
     const [orderIndex, setOrderIndex] = useState("");
 
     const [showCreateForm, setShowCreateForm] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
     const navigate = useNavigate();
 
@@ -233,7 +236,20 @@ function WorkoutDetails() {
             );
     }
 
-}
+    }
+
+    const DeleteWorkoutPlan = async () => {
+        try {
+            await deleteWorkoutPlan(id);
+
+            // Navigate back to the workouts list after deletion
+            navigate("/workouts");
+        }
+        catch (error) {
+
+            console.error("Failed to delete workout plan:", error);
+        }
+    }
 
 
     if (!workout) {
@@ -250,9 +266,17 @@ function WorkoutDetails() {
 
             <h1>{workout.workout_name}</h1>
 
-            <button className={styles.StartWorkoutButton} onClick={() => navigate(`/workouts/${workout.id}/session`)}>
+            <div className = {styles.pageSubheader}>
+
+            <button className={styles.defaultButton} onClick={() => navigate(`/workouts/${workout.id}/session`)}>
                 Start Workout
             </button>
+
+            <button className={styles.defaultButton} onClick={() => setShowOptions(true)}>
+                Options
+            </button>
+
+            </div>
         
             {/* Workout Exercises */}
 
@@ -478,7 +502,70 @@ function WorkoutDetails() {
 
             )}
 
+        {showOptions && (
+                <div
+                    className={styles.optionsOverlay}
+                    onClick={() => setShowOptions(false)}
+                >
+                    <div
+                        className={styles.optionsPanel}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            className={styles.closeOptions}
+                            onClick={() => setShowOptions(false)}
+                        >
+                            ✕
+                        </button>
 
+                        <h2>Session Options</h2>
+
+                        <button className={styles.confirmDeleteButton}
+                        onClick={() => setShowDeleteConfirm(true)}> DELETE </button>
+
+
+                        {/* Add more options here */}
+                    </div>
+                </div>
+                )}
+
+
+
+        {showDeleteConfirm && (
+            <div
+                className={styles.optionsOverlay}
+                onClick={() => setShowDeleteConfirm(false)}
+            >
+                <div
+                    className={styles.deleteConfirmPanel}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <h2>Delete Workout Session?</h2>
+
+                    <p>
+                        Are you sure you want to delete this workout session?
+                        This action cannot be undone.
+                    </p>
+
+                    <div className={styles.deleteConfirmButtons}>
+                        <button
+                            className={styles.cancelDeleteButton}
+                            onClick={() => setShowDeleteConfirm(false)}
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            className={styles.confirmDeleteButton}
+                            onClick={DeleteWorkoutPlan}
+                        >
+                            Confirm Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
+            
 
         </div>
 

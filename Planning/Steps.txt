@@ -15,6 +15,5 @@ Step 8:
 
 TODO:
 
-Workout Sessions Viewer Page
-Graph to show gym attended this month
-Show Recent Workouts On Dashboard
+Add 4 more cards to the dashboard. Calendar Card. Weight Journey Card.
+Add Update button to workouts, sessions, weight history logs, food logs.

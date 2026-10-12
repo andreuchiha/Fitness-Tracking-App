@@ -210,7 +210,9 @@ function WorkoutSession() {
                 onChange={(e) => setDuration(e.target.value)}
             />
 
-            <button onClick={handleRegisterSession}>Register</button>
+            <button className={styles.defaultButton} onClick={handleRegisterSession}>
+                Register
+            </button>
 
     </div>);
 }

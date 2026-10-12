@@ -124,7 +124,7 @@ function Dashboard() {
                 </section>
 
                 <section className = {styles.dashboardCard}>
-                    <h2>Recent Workouts</h2>
+                    <h2>Recent Sessions</h2>
                     {latestWorkoutSessions.length > 0 ? (
                         <ul>
                             {latestWorkoutSessions.map(session => (

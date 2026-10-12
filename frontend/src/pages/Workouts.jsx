@@ -107,18 +107,13 @@ function Workouts() {
 
                             <h2>{plan.workout_name}</h2>
 
-                            <h2>{plan.day_of_week}</h2>
+                            <h2 className>{plan.day_of_week}</h2>
 
                             <button className={styles.ViewWorkoutButton}  onClick={() => navigate(`/workouts/${plan.id}`)} >
                                 View Workout
                             </button>
 
-                            <button
-                             className={styles.DeleteWorkoutPlanExerciseButton}
-                             onClick={() => deleteWorkout(plan.id)}
-                            >
-                                REMOVE
-                            </button>
+
 
                         </div>
 
