@@ -1,9 +1,16 @@
 import styles from "../static/style.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+// Services
 import {getFoodLogs} from "../services/nutritionService";
 import {getWeightLogs} from "../services/progressService";
-import {getWorkoutPlans, getWorkoutSessions, getWorkoutPlan} from "../services/workoutService";
+import {getWorkoutPlans, getWorkoutSessions, getWorkoutPlan, getWorkoutSessionsExercises} from "../services/workoutService";
+import { getExercises } from "../services/exerciseService";
+// Components
+import WorkoutCalendar from "../components/WorkoutCalendar2";
+
 
 
 
@@ -13,6 +20,7 @@ function Dashboard() {
     const [weightLogs, setWeightLogs] = useState([]);
     const [workoutPlans, setWorkoutPlans] = useState([]);
     const [workoutSessions, setWorkoutSessions] = useState([]);
+    const [bestLifts, setBestLifts] = useState([]);
 
 
     const navigate = useNavigate();
@@ -74,10 +82,65 @@ function Dashboard() {
             }
         };
 
+        const fetchBestLifts = async () => {
+    try {
+        const [sessionExercises, exercises] = await Promise.all([
+            getWorkoutSessionsExercises(),
+            getExercises()
+        ]);
+
+        const liftRecords = {};
+
+        sessionExercises.forEach((record) => {
+            const weight = Number(record.weight);
+
+            // Ignore records without a valid recorded weight.
+            if (
+                record.weight === null ||
+                record.weight === undefined ||
+                record.weight === "" ||
+                !Number.isFinite(weight) ||
+                weight <= 0
+            ) {
+                return;
+            }
+
+            const exerciseId = record.exercise;
+            const exercise = exercises.find(
+                (item) => Number(item.id) === Number(exerciseId)
+            );
+
+            if (!exercise) {
+                return;
+            }
+
+            if (
+                !liftRecords[exerciseId] ||
+                weight > liftRecords[exerciseId].weight
+            ) {
+                liftRecords[exerciseId] = {
+                    id: exerciseId,
+                    name: exercise.name,
+                    weight: weight
+                };
+            }
+        });
+
+        const sortedLifts = Object.values(liftRecords)
+            .sort((a, b) => b.weight - a.weight)
+            .slice(0, 5); // Second number decides how many best lifts show
+
+        setBestLifts(sortedLifts);
+    } catch (error) {
+        console.error("Failed to fetch best lifts:", error);
+    }
+    };
+        
         fetchFoodLogs();
         fetchWeightLogs();
         fetchWorkoutPlans();
         fetchWorkoutSessions();
+        fetchBestLifts();
     }, []);
 
     // Get Todays Date in YYYY-MM-DD format
@@ -99,6 +162,14 @@ function Dashboard() {
 
     // Get the latest 3 workout sessions
     const latestWorkoutSessions = workoutSessions.slice(-3).reverse();
+    // Calculate average workout duration
+    const totalWorkoutDuration = workoutSessions.reduce(
+    (total, session) => total + Number(session.duration || 0),
+    0);
+
+    const averageWorkoutDuration = workoutSessions.length > 0
+    ? Math.round(totalWorkoutDuration / workoutSessions.length)
+    : 0;
 
     return (
         <div className = {styles.dashboard}>
@@ -135,9 +206,109 @@ function Dashboard() {
                         <p>No workouts completed yet.</p>
                     )}
                 </section>
+
+
+                <section className = {styles.dashboardCalendarCard}>
+                    <WorkoutCalendar sessions={workoutSessions} />
+
+                </section>
+                
+            <section className={styles.dashboardCard}>
+                <h2>Top Lifts</h2>
+
+                {bestLifts.length > 0 ? (
+                    <ul >
+                        {bestLifts.map((lift) => (
+                            <li key={lift.id}>
+                                <span>{lift.name}: </span>
+                                <strong>{lift.weight} kg</strong>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No recorded lifts yet.</p>
+                )}
+            </section>
+
+<section className={styles.dashboardGraphCard}>
+    <h2>Weight Journey</h2>
+
+    {weightLogs.length > 0 ? (
+        <div className={styles.dashboardWeightGraph}>
+            <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                    data={[...weightLogs].sort(
+                        (a, b) => new Date(a.date) - new Date(b.date)
+                    )}
+                    margin={{
+                        top: 10,
+                        right: 10,
+                        left: 0,
+                        bottom: 5
+                    }}
+                >
+                    <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="#536577"
+                    />
+
+                    <YAxis
+                        tick={{ fill: "white", fontSize: 12 }}
+                        width={45}
+                        domain={["auto", "auto"]}
+                        tickFormatter={(value) => `${value} kg`}
+                    />
+
+                    <Tooltip
+                        contentStyle={{
+                            backgroundColor: "#172f41",
+                            border: "1px solid #536577",
+                            borderRadius: "8px",
+                            color: "white"
+                        }}
+                        labelFormatter={(label, payload) =>
+                            payload?.[0]?.payload?.date ?? ""
+                        }
+                        formatter={(value) => [`${value} kg`, "Weight"]}
+                    />
+
+                    <Line
+                        type="monotone"
+                        dataKey="weight"
+                        name="Weight"
+                        stroke="#48bb78"
+                        strokeWidth={3}
+                        dot={{ r: 3, fill: "#48bb78" }}
+                        activeDot={{ r: 6 }}
+                    />
+                </LineChart>
+            </ResponsiveContainer>
+
+
+
+        </div>
+    ) : (
+        <p>No weight logs recorded yet.</p>
+    )}
+</section>
+
+        <section className={styles.dashboardCard}>
+
+            <h2>Average Workout Duration</h2>
+
+            <p className={styles.dashboardDurationText}>
+                {averageWorkoutDuration} minutes
+            </p>
+
+            <p className={styles.dashboardDurationText2}>Across {workoutSessions.length} workout sessions</p>
+
+        </section>
+
                 
 
             </div>
+
+            
         </div>
     );
 }
